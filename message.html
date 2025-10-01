@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💌 A Message For My Favourite Person !!</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            z-index: 20;
+        }
+
+        .music-control:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+            .navigation {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .falling-hearts {
+            position: absolute;
+            top: -50px;
+            font-size: 2rem;
+            color: #ff69b4;
+            animation: fall 8s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .message-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 50px 40px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: rgb(255, 255, 255);
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgb(155, 40, 40);
+            animation: glow 1.5s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff69b4;
+            }
+            to {
+                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff69b4;
+            }
+        }
+
+        .typewriter-container {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 5px solid #ff69b4;
+        }
+
+        .typewriter {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
+            color: white;
+            line-height: 1.8;
+            min-height: 200px;
+            text-align: left;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .cursor {
+            display: inline-block;
+            background-color: white;
+            width: 3px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .navigation {
+            display: flex;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .heart-decoration {
+            position: absolute;
+            font-size: 1.5rem;
+            color: rgba(255, 105, 180, 0.6);
+            animation: heartbeat 2s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: scale(1.3);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            .message-box {
+                padding: 30px 20px;
+            }
+            .title {
+                font-size: 2rem;
+            }
+            .typewriter {
+                font-size: 1.2rem;
+            }
+            .navigation {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <audio id="birthdayMusic" autoplay loop>
+        <source src="./music/sound.mp3" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+
+    <button class="music-control" id="musicToggle">🔊</button>
+
+    <div class="container">
+        <div class="message-box">
+            <h1 class="title">💌 A Special Messege For My Favourite Person !!! 💌</h1>
+            
+            <div class="typewriter-container">
+                <div class="typewriter" id="typewriter">
+                    <span class="cursor" id="cursor"></span>
+                </div>
+            </div>
+
+            <div class="navigation">
+                <a href="index.html" class="nav-btn">🏠 Home</a>
+                <a href="gallery.html" class="nav-btn">📸 Gallery</a>
+                <a href="surprise.html" class="nav-btn">🎁 Surprise</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        // Typewriter effect
+        const message = `Daania ji , even though you know this , but i still wanted to remind you that you are the most important person for me , idk why but I felt like doing something for you it has been a long time since I did something hehe , but still i just wanted to remind you that you are the most adorable , charming and cuteee person ever , im so glad to have you in my life I always sonder just how lucky I am to have you. The way you always ttalk to me , always ready to listen to my problems , the way you recognise and appreciate my efforts , it always lights me up. I love everything about you , as you know (i mean har time bolte hi rehta hu) but still take his as a reminder that im always gonna be there for you no matter what , I love you the most 💌`;
+
+        let i = 0;
+        const typewriter = document.getElementById('typewriter');
+        const cursor = document.getElementById('cursor');
+        
+        function typeWriter() {
+            if (i < message.length) {
+                if (message.charAt(i) === '\n') {
+                    typewriter.innerHTML += '<br>';
+                } else {
+                    typewriter.innerHTML += message.charAt(i);
+                }
+                i++;
+                setTimeout(typeWriter, 50);
+            } else {
+                cursor.style.display = 'none';
+            }
+        }
+
+        // Start typewriter effect after a short delay
+        setTimeout(typeWriter, 1000);
+
+        // Create falling hearts
+        function createFallingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'falling-hearts';
+            heart.innerHTML = ['❤️', '💕', '💖', '💝', '🌹'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            heart.style.fontSize = (Math.random() * 1 + 1.5) + 'rem';
+
+            const pageHeight = document.documentElement.scrollHeight;
+
+            heart.animate([
+                { transform: 'translateY(-100px) rotate(0deg)', opacity: 1 },
+                { transform: `translateY(${pageHeight}px) rotate(360deg)`, opacity: 0 }
+            ], {
+                duration: (Math.random() * 3000 + 5000), // 5–8 seconds
+                iterations: 1,
+                easing: 'linear'
+            });
+            
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 8000);
+        }
+
+        // Create falling hearts continuously
+        setInterval(createFallingHeart, 500);
+
+        // Create decorative hearts around the message box
+        function createHeartDecoration() {
+            const decoration = document.createElement('div');
+            decoration.className = 'heart-decoration';
+            decoration.innerHTML = '💕';
+            decoration.style.left = Math.random() * 100 + '%';
+            decoration.style.top = Math.random() * 100 + '%';
+            decoration.style.animationDelay = Math.random() * 2 + 's';
+            
+            document.body.appendChild(decoration);
+            
+            setTimeout(() => {
+                decoration.remove();
+            }, 4000);
+        }
+
+        // Create heart decorations
+        setInterval(createHeartDecoration, 2000);
+
+        // Initial burst of hearts
+        for (let i = 0; i < 5; i++) {
+            setTimeout(createFallingHeart, i * 200);
+        }
+
+        // Music control
+        const music = document.getElementById('birthdayMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        let isPlaying = true;
+
+        musicToggle.addEventListener('click', () => {
+            if (isPlaying) {
+                music.pause();
+                musicToggle.textContent = '🔇';
+            } else {
+                music.play();
+                musicToggle.textContent = '🔊';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // Auto-play music with user interaction
+        document.addEventListener('click', () => {
+            if (music.paused && isPlaying) {
+                music.play().catch(e => console.log('Autoplay prevented'));
+            }
+        }, { once: true });
+    </script>
+</body>
+</html>

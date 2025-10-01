@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Saaruu! 🤍</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url("/image/img.jpg") no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Transparent gradient overlay */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.4), rgba(196, 69, 105, 0.4), rgba(248, 181, 0, 0.4), rgba(254, 202, 87, 0.4));
+            background-size: 400% 400%;
+            animation: gradientShift 6s ease infinite;
+            z-index: -1;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 4rem;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            animation: bounce 2s infinite, colorChange 3s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+
+        @keyframes colorChange {
+            0% { color: #fff; }
+            25% { color: #ffeb3b; }
+            50% { color: #ff9800; }
+            75% { color: #e91e63; }
+            100% { color: #fff; }
+        }
+
+        .subtitle {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 40px;
+            animation: fadeInUp 2s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cake-container {
+            font-size: 6rem;
+            margin: 30px 0;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .cake-container:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .cake-container::before {
+            content: "✨✨✨✨✨";
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1rem;
+            animation: flicker 1s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+
+        .navigation {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 800px;
+            width: 100%;
+            margin-top: 40px;
+        }
+
+        .nav-btn {
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            color: white;
+            border: none;
+            padding: 20px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            text-decoration: none;
+            display: block;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #c44569, #ff6b9d);
+        }
+
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            z-index: 20;
+        }
+
+        .music-control:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        /* Heart Rain Overlay */
+        #heart-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Clicks pass through */
+            z-index: 5;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            top: -50px;
+            opacity: 0.8;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .title { font-size: 2.5rem; }
+            .navigation { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <audio id="birthdayMusic" autoplay loop>
+        <source src="./music/index.mp3" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+
+    <button class="music-control" id="musicToggle">🔊</button>
+
+    <!-- Heart Rain Overlay -->
+    <div id="heart-rain"></div>
+
+    <div class="container">
+        <h1 class="title">💗 FOR SOMEONE SPECIAL ! 💗</h1>
+        <p class="subtitle">😁 You Are My Favourite Wala Person </p>
+        
+        <div class="cake-container" onclick="blowCandles()">😋</div>
+
+        <div class="navigation">
+            <a href="gallery.html" class="nav-btn">📸 View Gallery</a>
+            <a href="message.html" class="nav-btn">💌 Sweet Message </a>
+            <a href="surprise.html" class="nav-btn">🎁 Special Surprise</a>
+        </div>
+    </div>
+
+    <script>
+        // Music control
+        const music = document.getElementById('birthdayMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        let isPlaying = true;
+
+        musicToggle.addEventListener('click', () => {
+            if (isPlaying) {
+                music.pause();
+                musicToggle.textContent = '🔇';
+            } else {
+                music.play();
+                musicToggle.textContent = '🔊';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // Blow candles effect
+        function blowCandles() {
+            const cake = document.querySelector('.cake-container');
+            cake.innerHTML = '😋';
+            cake.style.transform = 'scale(1.2)';
+            setTimeout(() => { cake.innerHTML = '😝'; cake.style.transform = 'scale(1)'; }, 1000);
+            setTimeout(() => { cake.innerHTML = '😋'; }, 2000);
+        }
+
+        // Floating Heart Rain
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerHTML = ['❤️','💖','💗','💘','💕','💞','💝'][Math.floor(Math.random()*7)];
+
+            // Random size & position
+            heart.style.fontSize = (Math.random()*2+1)+'rem';
+            heart.style.left = Math.random()*100+'%';
+
+            // Random duration
+            const duration = Math.random()*5+5; // 5-10s
+            heart.style.animationDuration = duration+'s';
+
+            // Random color
+            heart.style.color = ['#ff6b9d','#ff1744','#ff69b4','#ff4081','#f50057'][Math.floor(Math.random()*5)];
+
+            document.getElementById('heart-rain').appendChild(heart);
+
+            setTimeout(()=>{ heart.remove(); }, duration*1000);
+        }
+
+        setInterval(createFloatingHeart, 300);
+    </script>
+</body>
+</html>

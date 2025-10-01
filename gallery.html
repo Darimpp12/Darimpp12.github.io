@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>📸 Daania's Gallery</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+      min-height: 100vh;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .title {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3rem;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      margin-bottom: 20px;
+      animation: slideDown 1s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      background: white;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.05) rotate(2deg);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      z-index: 10;
+    }
+
+    .gallery-item:nth-child(even):hover {
+      transform: scale(1.05) rotate(-2deg);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .gallery-item h3 {
+      margin: 10px 0 5px;
+      font-size: 1.2rem;
+      text-align: center;
+      color: #333;
+    }
+
+    .gallery-item p {
+      margin: 0 0 15px;
+      text-align: center;
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    .navigation {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      background: rgba(255,255,255,0.2);
+      padding: 15px 30px;
+      border-radius: 25px;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-btn {
+      background: linear-gradient(45deg, #ff6b9d, #c44569);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .music-control {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 1.5rem;
+      color: white;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      z-index: 20;
+    }
+
+    .music-control:hover {
+      background: rgba(255,255,255,0.3);
+      transform: scale(1.1);
+    }
+
+    .sparkle {
+      position: absolute;
+      color: gold;
+      font-size: 1rem;
+      animation: sparkleFloat 3s infinite ease-in-out;
+      pointer-events: none;
+    }
+
+    @keyframes sparkleFloat {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(-20px) rotate(180deg);
+        opacity: 0.7;
+      }
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 1.5rem;
+      color: pink;
+      animation: floatUp 4s ease-in-out forwards;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-200px) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .title {
+        font-size: 2rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      .navigation {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    .image-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .image-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .image-overlay img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 20px;
+      transform: scale(0.7);
+      animation: zoomIn 0.3s ease forwards;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .image-caption {
+      margin-top: 15px;
+      color: white;
+      font-size: 1.2rem;
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.7);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="birthdayMusic" autoplay loop>
+    <source src="./music/gallary.mp3" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <button class="music-control" id="musicToggle">🔊</button>
+
+  <div class="header">
+    <h1 class="title">📸 Cute Memories !!!! 📸</h1>
+    <p style="color: white; font-size: 1.2rem;">Beautiful moments captured forever!</p>
+  </div>
+
+  <div class="gallery-grid" id="galleryGrid">
+
+    <div class="gallery-item" data-caption="You And Your Elegance! 🤩">
+      <img src="./image/s1.png" alt="Birthday Balloons">
+      <h3> My kuchu puchu </h3>
+      <p>You And Your Elegnace! 🤩</p>
+    </div>
+
+    <div class="gallery-item" data-caption="Your Eyes Are Really Beautiful! 😫">
+      <img src="./image/s2.png" alt="Birthday Cake">
+      <h3> Ma'am ke baal </h3>
+      <p>You hair is just heaven ! 😫</p>
+    </div>
+
+    <div class="gallery-item" data-caption="Your Love For Nature! 😝">
+      <img src="./image/s3.png" alt="Special Gifts">
+      <h3> Absolute Baddie </h3>
+      <p>Face card so good makes me blush 😝</p>
+    </div>
+
+    <div class="gallery-item" data-caption="Chal koi nhi, theek pose hai! 😏">
+      <img src="./image/s4.png" alt="Magical Moments">
+      <h3> Wifey Material </h3>
+      <p> Man karta hai abhi shadi krlu </p>
+    </div>
+
+    <div class="gallery-item" data-caption="Your Smile Makes Me Happy! 🥺">
+      <img src="./image/s5.png" alt="Love & Care">
+      <h3> How are you even minee </h3>
+      <p> Your'e so damn beautiful </p>
+    </div>
+
+    <div class="gallery-item" data-caption="Tu Bohot pyaari lag rhi isme! 😍">
+      <img src="./image/s6.png" alt="Celebration">
+      <h3> Laddo kii smileeeee </h3>
+      <p> Your smile makes me soo lost in youu </p>
+    </div>
+
+  </div>
+
+  <div class="navigation">
+    <a href="index.html" class="nav-btn">🏠 Home</a>
+    <a href="message.html" class="nav-btn">💌 Message</a>
+    <a href="surprise.html" class="nav-btn">🎁 Surprise</a>
+  </div>
+
+  <!-- Zoom Overlay -->
+  <div id="imageOverlay" class="image-overlay">
+    <img id="overlayImg" src="" alt="Zoomed Image" />
+    <div class="image-caption" id="overlayCaption"></div>
+  </div>
+
+  <script>
+    // Sparkles
+    function createSparkle() {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.innerHTML = '✨';
+      sparkle.style.left = Math.random() * 100 + '%';
+      sparkle.style.top = Math.random() * 100 + '%';
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 3000);
+    }
+    setInterval(createSparkle, 1000);
+
+    // Floating Hearts with different types and sizes
+        function createHeart() {
+        const heartTypes = ['❤️','💖','💕','💓','💘','💝','💗','💐','🤍']; // different types of hearts
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+
+        // Pick a random heart
+        heart.innerHTML = heartTypes[Math.floor(Math.random() * heartTypes.length)];
+
+        // Random position and size
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.bottom = '0';
+        heart.style.fontSize = Math.random() * 15 + 15 + 'px'; // size between 15px - 30px
+
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+    }
+    setInterval(createHeart, 700);
+
+
+    // Music Toggle
+    const music = document.getElementById('birthdayMusic');
+    const musicToggle = document.getElementById('musicToggle');
+    let isPlaying = true;
+
+    musicToggle.addEventListener('click', () => {
+      if (isPlaying) {
+        music.pause();
+        musicToggle.textContent = '🔇';
+      } else {
+        music.play();
+        musicToggle.textContent = '🔊';
+      }
+      isPlaying = !isPlaying;
+    });
+
+    document.addEventListener('click', () => {
+      if (music.paused && isPlaying) {
+        music.play().catch(e => console.log('Autoplay blocked'));
+      }
+    }, { once: true });
+
+    // Image Zoom Feature
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const overlay = document.getElementById('imageOverlay');
+    const overlayImg = document.getElementById('overlayImg');
+    const overlayCaption = document.getElementById('overlayCaption');
+
+    galleryItems.forEach(item => {
+      const img = item.querySelector('img');
+      img.addEventListener('click', () => {
+        overlay.classList.add('active');
+        overlayImg.src = img.src;
+        overlayImg.alt = img.alt;
+        overlayCaption.textContent = item.getAttribute('data-caption');
+      });
+    });
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target !== overlayImg) {
+        overlay.classList.remove('active');
+        overlayImg.src = '';
+        overlayCaption.textContent = '';
+      }
+    });
+  </script>
+
+</body>
+</html>

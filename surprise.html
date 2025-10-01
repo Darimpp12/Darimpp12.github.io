@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎁 Special Surprise</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: radial-gradient(circle at center, #ff9a9e 0%, #fad0c4 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Card container around heading + gifts */
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      padding: 50px 40px;
+      border-radius: 30px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Glowing heading with gap below */
+    .gift-heading {
+      font-family: 'Dancing Script', cursive;
+      color: #ffffff;
+      font-size: 2.5rem;
+      font-weight: bold;
+      text-shadow: 0 0 10px #000000, 0 0 20px #000000, 0 0 30px #000000;
+      animation: headingGlow 2s infinite alternate;
+      margin-bottom: 100px; /* Creates the gap between heading and gifts */
+      text-align: center;
+    }
+
+    @keyframes headingGlow {
+      0% {
+        text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff;
+      }
+      50% {
+        text-shadow: 0 0 20px #ffffff, 0 0 40px #ffffff, 0 0 60px #ffffff;
+      }
+      100% {
+        text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff;
+      }
+    }
+
+    /* Gifts container inside card */
+    .container {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* Gift Box Styles */
+    .gift-box {
+      width: 120px;
+      height: 120px;
+      background: #ff6b9d;
+      position: relative;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .gift-box:hover {
+      transform: scale(1.1);
+    }
+
+    .gift-lid {
+      width: 100%;
+      height: 30px;
+      background: #c44569;
+      position: absolute;
+      top: -30px;
+      left: 0;
+      border-radius: 10px 10px 0 0;
+      transition: transform 0.6s ease;
+      transform-origin: bottom;
+    }
+
+    .ribbon {
+      width: 20px;
+      height: 100%;
+      background: gold;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .navigation {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      background: rgba(255,255,255,0.2);
+      padding: 15px 30px;
+      border-radius: 25px;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-btn {
+      background: linear-gradient(45deg, #ff6b9d, #c44569);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .gift-message {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1rem;
+      font-weight: bold;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      padding: 10px;
+      border-radius: 10px;
+      background: rgba(0,0,0,0.6);
+      animation: fadeIn 0.6s ease forwards;
+      width: 150px;
+      text-align: center;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -40%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+    /* Navigation */
+    .navigation {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.2);
+      padding: 20px 40px;
+      border-radius: 25px;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-btn {
+      background: linear-gradient(45deg, #ff6b9d, #c44569);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      margin: 0 10px;
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .music-control {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: rgba(255,255,255,0.2);
+        border: none;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+        color: white;
+        cursor: pointer;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        z-index: 20;
+    }
+
+    .music-control:hover {
+        background: rgba(255,255,255,0.3);
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+      .gift-heading {
+        font-size: 2rem;
+      }
+      .gift-box {
+        width: 100px;
+        height: 100px;
+      }
+      .gift-message {
+        width: 130px;
+        font-size: 0.9rem;
+      }
+
+      .navigation {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <audio id="birthdayMusic" autoplay loop>
+      <source src="./music/surprise.mp3" type="audio/wav">
+      Your browser does not support the audio element.
+  </audio>
+
+  <button class="music-control" id="musicToggle">🔊</button>
+  <div class="card">
+    <h1 class="gift-heading">🎀 3 Surprises for my Laddo  🎀</h1>
+
+    <div class="container">
+      <div class="gift-box" onclick="toggleGift(this, 'Surprise 1: Khali dabba ')">
+        <div class="gift-lid"></div>
+        <div class="ribbon"></div>
+        <div class="gift-message"></div>
+      </div>
+
+      <div class="gift-box" onclick="toggleGift(this, 'Surprise 2: Ye bhi khali ')">
+        <div class="gift-lid"></div>
+        <div class="ribbon"></div>
+        <div class="gift-message"></div>
+      </div>
+
+      <div class="gift-box" onclick="toggleGift(this, 'Surprise 3: Gareeb admi but just know I love you 😝')">
+        <div class="gift-lid"></div>
+        <div class="ribbon"></div>
+        <div class="gift-message"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="navigation">
+    <a href="index.html" class="nav-btn">🏠 Home</a>
+    <a href="gallery.html" class="nav-btn">📸 Gallery</a>
+    <a href="message.html" class="nav-btn">🎁 Messege</a>
+  </div>
+
+  <script>
+    // Music control
+      const music = document.getElementById('birthdayMusic');
+      const musicToggle = document.getElementById('musicToggle');
+      let isPlaying = true;
+
+      musicToggle.addEventListener('click', () => {
+          if (isPlaying) {
+              music.pause();
+              musicToggle.textContent = '🔇';
+          } else {
+              music.play();
+              musicToggle.textContent = '🔊';
+          }
+          isPlaying = !isPlaying;
+      });
+
+        // Auto-play music with user interaction
+      document.addEventListener('click', () => {
+          if (music.paused && isPlaying) {
+              music.play().catch(e => console.log('Autoplay prevented'));
+          }
+      }, { once: true });
+
+    function toggleGift(gift, message) {
+      const lid = gift.querySelector('.gift-lid');
+      const msgBox = gift.querySelector('.gift-message');
+
+      if (gift.classList.contains("open")) {
+        // Close the box
+        lid.style.transform = "rotateX(0deg)";
+        msgBox.style.display = "none";
+        gift.classList.remove("open");
+      } else {
+        // Open the box
+        lid.style.transform = "rotateX(120deg)";
+        msgBox.textContent = message;
+        msgBox.style.display = "block";
+        gift.classList.add("open");
+      }
+    }
+  </script>
+</body>
+</html>
